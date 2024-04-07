@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Add question</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="/css/bootstrap.min.css"
+      th:href="@{/css/bootstrap.min.css}"
+    />
+  </head>
+  <body></body>
+</html>
+  <body>
+    <h1>Add question</h1>
+
+    <form
+      method="post"
+      action="#"
+      th:action="@{/addquestion}"
+      th:object="${question}"
+    >
+      <input type="hidden" name="surveyId" th:value="${survey.id}" />
+
+      <label for="questionText"
+        >Question:
+        <input type="text" id="questionText" th:field="*{questionText}" /></label
+      ><br />
+
+      <input type="submit" value="Save" />
+    </form>
+  </body>
+</html>

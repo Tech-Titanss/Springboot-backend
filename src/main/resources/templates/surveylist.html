@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>List of surveys</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="/css/bootstrap.min.css"
+      th:href="@{/css/bootstrap.min.css}"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Surveys</h1>
+
+      <table class="table table-striped">
+        <tr>
+          <th>Name</th>
+          <th>Questions</th>
+          <th></th>
+        </tr>
+        <tr th:each="survey : ${surveys}">
+          <td th:text="${survey.name}"></td>
+          <td>
+            <div th:each="question : ${survey.questions}">
+              <p th:text="${question.questionText}"></p>
+            </div>
+          </td>
+          <td>
+            <a
+              class="btn btn-primary"
+              th:href="@{/addquestion/{id}(id=${survey.id})}"
+              >Add question</a
+            >
+          </td>
+        </tr>
+      </table>
+
+      <a class="btn btn-success" href="/addsurvey">Add survey</a>
+    </div>
+  </body>
+</html>
