@@ -39,8 +39,8 @@ public class Survey {
         return name;
     }
 
-    public void setName(String nimi) {
-        this.name = nimi;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Question> getQuestions() {
