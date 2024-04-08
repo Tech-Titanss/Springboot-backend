@@ -33,6 +33,26 @@ public class SurveyController {
         return "surveylist";
     }
 
+    @GetMapping("/surveyquestions/{id}")
+    public String listSurveyQuestions(@PathVariable("id") Long surveyId, Model model) {
+
+        Optional<Survey> optionalSurvey = surveyRepository.findById(surveyId);
+
+        if (optionalSurvey.isPresent()) {
+
+            Survey survey = optionalSurvey.get();
+            model.addAttribute("survey", survey);
+            model.addAttribute("question", new Question());
+
+            return "surveyquestions";
+
+        } else {
+
+            // Handle book not found
+            return "error"; // TODO: create error page
+        }
+    }
+
     @PostMapping("/savesurvey")
     public String saveSurvey(Survey survey) {
 
@@ -72,7 +92,7 @@ public class SurveyController {
         questionRepository.save(question); // Tallenna kysymys ensin
         survey.getQuestions().add(question);
         surveyRepository.save(survey); // Tallenna kysely sen jälkeen
-        return "redirect:/surveylist";
+        return "redirect:/surveyquestions/" + surveyId;
 
     }
 

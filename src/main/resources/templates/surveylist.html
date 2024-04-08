@@ -18,21 +18,17 @@
       <table class="table table-striped">
         <tr>
           <th>Name</th>
-          <th>Questions</th>
+          <th>Description</th>
           <th></th>
         </tr>
         <tr th:each="survey : ${surveys}">
           <td th:text="${survey.name}"></td>
-          <td>
-            <div th:each="question : ${survey.questions}">
-              <p th:text="${question.questionText}"></p>
-            </div>
-          </td>
+          <td th:text="${survey.description}"></td>
           <td>
             <a
               class="btn btn-primary"
-              th:href="@{/addquestion/{id}(id=${survey.id})}"
-              >Add question</a
+              th:href="@{/surveyquestions/{id}(id=${survey.id})}"
+              >Show questions</a
             >
           </td>
         </tr>
