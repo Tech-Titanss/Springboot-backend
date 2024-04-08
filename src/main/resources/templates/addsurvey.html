@@ -11,9 +11,16 @@
   </head>
   <body>
     <h1>Add a survey</h1>
+    <br/>
     <form method="post" th:action="@{/savesurvey}" th:object="${survey}">
-      <input type="text" th:field="${survey.name}" />
+      <label for="name">Name: <input type="text" id="name" th:field="${survey.name}" /></label>
+      <br/>
+      <Label for="description">Description: <input type="text" id="description" th:field="${survey.description}" /></Label>
+      <br/>
+      <br/>
       <input type="submit" value="Submit" />
+      <br/>
+      <br/>
       <input type="reset" value="Reset" />
     </form>
   </body>
