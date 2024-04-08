@@ -27,7 +27,7 @@ public class SurveyController {
         return "addsurvey";
     }
 
-    @GetMapping("/surveylist")
+    @GetMapping({"/","/surveylist"})
     public String listSurveys(Model model) {
         model.addAttribute("surveys", surveyRepository.findAll());
         return "surveylist";

@@ -1,10 +1,15 @@
 package com.techtitans.surveyservice.surveyservice.domain;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Question {
@@ -17,6 +22,10 @@ public class Question {
 
     @ManyToOne
     private Survey survey;
+
+    @JsonIgnoreProperties("question")
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answer;
 
     public Question() {
     }
@@ -50,4 +59,11 @@ public class Question {
         this.survey = survey;
     }
 
+    public List<Answer> getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(List<Answer> answer) {
+        this.answer = answer;
+    }
 }
