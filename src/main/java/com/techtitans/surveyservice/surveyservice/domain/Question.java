@@ -25,7 +25,7 @@ public class Question {
 
     @JsonIgnoreProperties("question")
     @OneToMany(mappedBy = "question")
-    private List<Answer> answer;
+    private List<Answer> answers;
 
     public Question() {
     }
@@ -60,10 +60,10 @@ public class Question {
     }
 
     public List<Answer> getAnswer() {
-        return answer;
+        return answers;
     }
 
     public void setAnswer(List<Answer> answer) {
-        this.answer = answer;
+        this.answers = answer;
     }
 }

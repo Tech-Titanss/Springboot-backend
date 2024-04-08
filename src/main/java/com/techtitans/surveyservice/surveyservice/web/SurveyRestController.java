@@ -2,6 +2,7 @@ package com.techtitans.surveyservice.surveyservice.web;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.techtitans.surveyservice.surveyservice.domain.Answer;
 import com.techtitans.surveyservice.surveyservice.domain.Question;
 import com.techtitans.surveyservice.surveyservice.domain.QuestionRepository;
 import com.techtitans.surveyservice.surveyservice.domain.Survey;
@@ -37,7 +38,7 @@ public class SurveyRestController {
         return (List<Survey>) surveyRepository.findAll();
     }
     
-    @GetMapping("surveys/{id}")
+    @GetMapping("survey/{id}")
     public @ResponseBody Optional <Survey> getSurvey(@PathVariable("id") Long id) {
         return surveyRepository.findById(id);
     }
@@ -47,11 +48,26 @@ public class SurveyRestController {
         return surveyRepository.save(survey);
     }
 
-    @PutMapping("/surveys/{id}")
+    @PutMapping("/survey/{id}")
     public @ResponseBody Survey changeSurvey(@RequestBody Survey survey, @PathVariable("id") Long id) {
         Survey modifiedSurvey = surveyRepository.findById(id).get();
         modifiedSurvey.setName(survey.getName());
         modifiedSurvey.setDescription(survey.getDescription());
         return surveyRepository.save(modifiedSurvey);
+    }
+
+    @GetMapping("/question/{questionid}/answer")
+    public @ResponseBody List<Answer> GetAnswer(@PathVariable("questionid") Long questionId) {
+        Question question = questionRepository.findById(questionId).get();
+        return question.getAnswer();
+   }
+
+    @PostMapping("/question/{questionid}/answer")
+    public @ResponseBody Question addAnswer(@RequestBody Answer answer, @PathVariable("questionid") Long questionId) {
+       Question question = questionRepository.findById(questionId).get();
+       List<Answer> answers = question.getAnswer();
+       answers.add(answer);
+       question.setAnswer(answers);
+       return questionRepository.save(question);
     }
 }
