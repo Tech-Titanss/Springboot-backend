@@ -20,8 +20,9 @@ public class SurveyserviceApplication {
 	public CommandLineRunner demo(SurveyRepository surveyRepository, QuestionRepository questionRepository) {
 		return (args) -> {
 
-			Survey surveyTest1 = new Survey("Survey #1");
-			Survey surveyTest2 = new Survey("Survey #2");
+			Survey surveyTest1 = new Survey("Survey #1", "Description of survey");
+			Survey surveyTest2 = new Survey("Survey #2", "Description of survey 2");
+
 
 			surveyRepository.save(surveyTest1);
 			surveyRepository.save(surveyTest2);

@@ -14,8 +14,16 @@ public class Survey {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String name;
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     @OneToMany(mappedBy = "survey")
     private List<Question> questions;
@@ -23,8 +31,9 @@ public class Survey {
     public Survey() {
     }
 
-    public Survey(String name) {
+    public Survey(String name, String description) {
         this.name = name;
+        this.description = description;
     }
 
     public Long getId() {
