@@ -1,8 +1,7 @@
 package com.techtitans.surveyservice.surveyservice.web;
 
-import org.springframework.web.bind.annotation.RestController;
-
 import com.techtitans.surveyservice.surveyservice.domain.Answer;
+import com.techtitans.surveyservice.surveyservice.domain.AnswerRepository;
 import com.techtitans.surveyservice.surveyservice.domain.Question;
 import com.techtitans.surveyservice.surveyservice.domain.QuestionRepository;
 import com.techtitans.surveyservice.surveyservice.domain.Survey;
@@ -19,32 +18,39 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 
 @Controller
 @CrossOrigin
 public class SurveyRestController {
 
-    
     @Autowired
     private SurveyRepository surveyRepository;
     @Autowired
     private QuestionRepository questionRepository;
+    @Autowired
+    private AnswerRepository answerRepository;
 
     @GetMapping("/surveys")
     public @ResponseBody List<Survey> getSurveys() {
         return (List<Survey>) surveyRepository.findAll();
     }
-    
+
     @GetMapping("survey/{id}")
-    public @ResponseBody Optional <Survey> getSurvey(@PathVariable("id") Long id) {
+    public @ResponseBody Optional<Survey> getSurvey(@PathVariable("id") Long id) {
         return surveyRepository.findById(id);
     }
-    
+
     @PostMapping("/surveys")
     public @ResponseBody Survey postSurvey(@RequestBody Survey survey) {
+        List<Question> listOfQuestions = survey.getQuestions();
+        for (int i = 0; i < listOfQuestions.size(); i++) {
+            Question question = listOfQuestions.get(i);
+            List<Answer> answerList = question.getAnswer();
+            Answer answer = new Answer("", question);
+            answer.setAnswer(answerList.get(0).getAnswer());
+            answerRepository.save(answer);
+        }
         return surveyRepository.save(survey);
     }
 
@@ -60,14 +66,5 @@ public class SurveyRestController {
     public @ResponseBody List<Answer> GetAnswer(@PathVariable("questionid") Long questionId) {
         Question question = questionRepository.findById(questionId).get();
         return question.getAnswer();
-   }
-
-    @PostMapping("/question/{questionid}/answer")
-    public @ResponseBody Question addAnswer(@RequestBody Answer answer, @PathVariable("questionid") Long questionId) {
-       Question question = questionRepository.findById(questionId).get();
-       List<Answer> answers = question.getAnswer();
-       answers.add(answer);
-       question.setAnswer(answers);
-       return questionRepository.save(question);
     }
 }
