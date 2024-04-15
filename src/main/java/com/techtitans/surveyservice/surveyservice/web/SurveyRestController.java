@@ -36,7 +36,7 @@ public class SurveyRestController {
         return (List<Survey>) surveyRepository.findAll();
     }
 
-    @GetMapping("survey/{id}")
+    @GetMapping("/survey/{id}")
     public @ResponseBody Optional<Survey> getSurvey(@PathVariable("id") Long id) {
         return surveyRepository.findById(id);
     }
