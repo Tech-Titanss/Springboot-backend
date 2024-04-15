@@ -27,7 +27,7 @@ public class SurveyController {
         return "addsurvey";
     }
 
-    @GetMapping({"/","/surveylist"})
+    @GetMapping({ "/", "/surveylist" })
     public String listSurveys(Model model) {
         model.addAttribute("surveys", surveyRepository.findAll());
         return "surveylist";
@@ -94,6 +94,14 @@ public class SurveyController {
         surveyRepository.save(survey); // Tallenna kysely sen jälkeen
         return "redirect:/surveyquestions/" + surveyId;
 
+    }
+
+    @GetMapping("/surveyedit/{id}")
+    public String editsurvey(@PathVariable("id") Long id, Model model) {
+        Survey survey = surveyRepository.findById(id).get();
+        model.addAttribute("survey", survey);
+        model.addAttribute("questions", survey.getQuestions());
+        return "surveyedit";
     }
 
 }
