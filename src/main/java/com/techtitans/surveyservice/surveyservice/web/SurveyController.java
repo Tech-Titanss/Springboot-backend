@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.techtitans.surveyservice.surveyservice.domain.Survey;
 import com.techtitans.surveyservice.surveyservice.domain.SurveyRepository;
@@ -28,7 +27,7 @@ public class SurveyController {
         return "addsurvey";
     }
 
-    @GetMapping({"/","/surveylist"})
+    @GetMapping({ "/", "/surveylist" })
     public String listSurveys(Model model) {
         model.addAttribute("surveys", surveyRepository.findAll());
         return "surveylist";
@@ -98,7 +97,7 @@ public class SurveyController {
     }
 
     @GetMapping("/surveyedit/{id}")
-    public String editsurvey (@PathVariable("id") Long id, Model model) {
+    public String editsurvey(@PathVariable("id") Long id, Model model) {
         Survey survey = surveyRepository.findById(id).get();
         model.addAttribute("survey", survey);
         model.addAttribute("questions", survey.getQuestions());

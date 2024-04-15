@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Edit survey</h1>
     <form th:object="${survey}" th:action="@{/savesurveyedit}" method="post">
-        <input type="hidden" th:field="*{id}"/>
-        <div>
-            <label>Name: <input type="text" th:field="*{name}"/></label><br>
-            <label>Description: <input type="text" size="50%" th:field="*{description}"/></label>
-            <div th:each="question : ${questions}">
-                <input type="text" th:field="${question.questionText}"/>
-            </div>
+      <input type="hidden" th:field="*{id}" />
+      <div>
+        <label>Name: <input type="text" th:field="*{name}" /></label><br />
+        <label
+          >Description: <input type="text" size="50%" th:field="*{description}"
+        /></label>
+          <ul>
+            <li th:each="question : ${questions}">
+                <span th:text="${question.questionText}"></span>
+        </li>
+    </ul>
         </div>
-        <input type="submit" value="save" />
+      </div>
+      <input type="submit" value="save" />
     </form>
-</body>
+  </body>
 </html>
