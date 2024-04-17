@@ -9,6 +9,7 @@ import com.techtitans.surveyservice.surveyservice.domain.SurveyRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,17 +42,17 @@ public class SurveyRestController {
         return surveyRepository.findById(id);
     }
 
-    @PostMapping("/surveys")
-    public @ResponseBody Survey postSurvey(@RequestBody Survey survey) {
-        List<Question> listOfQuestions = survey.getQuestions();
-        for (int i = 0; i < listOfQuestions.size(); i++) {
-            Question question = listOfQuestions.get(i);
-            List<Answer> answerList = question.getAnswer();
-            Answer answer = new Answer("", question);
-            answer.setAnswer(answerList.get(0).getAnswer());
-            answerRepository.save(answer);
+    @PostMapping("/saveanswers")
+    public @ResponseBody String postSurvey(@RequestBody Map<String, String> surveyParams) {
+        for (Map.Entry<String, String> entry : surveyParams.entrySet()) {
+            Long questionId = Long.parseLong(entry.getKey());
+            Question question = questionRepository.findById(questionId).orElse(null);
+            if (question != null) {
+                Answer answer = new Answer(entry.getValue(), question);
+                answerRepository.save(answer);
+            }
         }
-        return surveyRepository.save(survey);
+        return "";
     }
 
     @PutMapping("/survey/{id}")
