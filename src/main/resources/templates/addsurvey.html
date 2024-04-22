@@ -8,20 +8,95 @@
       href="/css/bootstrap.min.css"
       th:href="@{/css/bootstrap.min.css}"
     />
+    <style>
+      body {
+        padding: 8px;
+        margin: 0;
+      }
+    </style>
   </head>
   <body>
     <h1>Add a survey</h1>
-    <br/>
     <form method="post" th:action="@{/savesurvey}" th:object="${survey}">
-      <label for="name">Name: <input type="text" id="name" th:field="${survey.name}" /></label>
-      <br/>
-      <Label for="description">Description: <input type="text" id="description" th:field="${survey.description}" /></Label>
-      <br/>
-      <br/>
-      <input type="submit" value="Submit" />
-      <br/>
-      <br/>
-      <input type="reset" value="Reset" />
+      <div class="form-group">
+        <label for="name"
+          >Name: <input type="text" id="name" th:field="${survey.name}"
+        /></label>
+      </div>
+      <div class="form-group">
+        <label for="description"
+          >Description:
+          <input type="text" id="description" th:field="${survey.description}"
+        /></label>
+      </div>
+      <div class="form-group" style="margin-bottom: 8px">
+        <h6>Survey answering period</h6>
+        <label
+          >Start:
+          <input
+            type="text"
+            id="startdate"
+            th:field="*{startDate}"
+            placeholder="dd/mm/yyyy"
+          />
+        </label>
+        <label>
+          End:
+          <input
+            type="text"
+            id="enddate"
+            th:field="${survey.endDate}"
+            placeholder="dd/mm/yyyy"
+          />
+        </label>
+      </div>
+      <div class="question-inputs">
+        <div class="form-group row">
+          <div class="col">
+            <label>Question:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="questions"
+              th:field="${survey.questions}"
+            />
+          </div>
+          <div class="col" style="align-self: end">
+            <button
+              type="button"
+              class="btn btn-danger"
+              onclick="removeQuestion(this)"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-secondary" onclick="addQuestion()">
+        Add question
+      </button>
+      <div style="margin-top: 8px">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-secondary">Reset</button>
+      </div>
     </form>
+
+    <script>
+      function addQuestion() {
+        var container = document.querySelector(".question-inputs");
+        var newInput = document.createElement("div");
+        newInput.classList.add("form-group", "row");
+        newInput.innerHTML =
+          '<div class="col">' +
+          '<label>Question:</label> <input type="text" class="form-control" name="questions" th:field="${survey.questions}"/> </div>' +
+          '<div class="col" style="align-self: end"><button type="button" class="btn btn-danger" onclick="removeQuestion(this)">Delete</button></div>';
+        container.appendChild(newInput);
+      }
+
+      function removeQuestion(button) {
+        var divToRemove = button.parentNode.parentNode;
+        divToRemove.parentNode.removeChild(divToRemove);
+      }
+    </script>
   </body>
 </html>
