@@ -67,7 +67,8 @@ public class Survey {
 
     @Override
     public String toString() {
-        return "survey [id=" + id + ", name=" + name + "]";
+        return "Survey [id=" + id + ", name=" + name + ", description=" + description + ", questions=" + questions
+                + "]";
     }
 
 }
