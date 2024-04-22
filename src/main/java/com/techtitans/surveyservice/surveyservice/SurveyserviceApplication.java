@@ -34,11 +34,17 @@ public class SurveyserviceApplication {
 			Question kouluruoka4 = new Question("Kerro omin sanoin mitä mieltä olet kouluruuasta.", surveyTest1);
 			Question kouluruoka5 = new Question("Onko kouluruoka tarpeeksi monipuolista?", surveyTest1);
 
+			Question kouluruoka6 = new Question("Lempielain?", "radio", surveyTest1);
+			kouluruoka6.getOptions().add("koira");
+			kouluruoka6.getOptions().add("kissa");
+			kouluruoka6.getOptions().add("ankka");
+
 			questionRepository.save(kouluruoka1);
 			questionRepository.save(kouluruoka2);
 			questionRepository.save(kouluruoka3);
 			questionRepository.save(kouluruoka4);
 			questionRepository.save(kouluruoka5);
+			questionRepository.save(kouluruoka6);
 
 			Question kampus1 = new Question("Mitä mieltä olet Pasilan kampuksen siisteydestä?", surveyTest2);
 			Question kampus2 = new Question("Millä tavalla kuljet Pasilan kampukselle?", surveyTest2);
