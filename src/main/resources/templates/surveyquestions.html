@@ -14,7 +14,11 @@
   <body>
     <div class="container">
       <h1 th:text="${survey.name}"></h1>
-
+      <h6 th:text="${survey.description}"></h6>
+      <div>
+        <h6>Answering period:</h6>
+        <span th:text="${answeringPeriod}"></span>
+      </div>
       <table class="table table-striped">
         <tr>
           <th>Questions</th>
@@ -24,13 +28,14 @@
         </tr>
       </table>
 
-      <a class="btn btn-primary" th:href="@{/addquestion/{id}(id=${survey.id})}">Add question</a>
+      <a class="btn btn-primary" th:href="@{/addquestion/{id}(id=${survey.id})}"
+        >Add question</a
+      >
 
-      <br/>
-      <br/>
-      
+      <br />
+      <br />
+
       <a class="btn btn-success" href="/surveylist">Back to surveys</a>
-
     </div>
   </body>
 </html>

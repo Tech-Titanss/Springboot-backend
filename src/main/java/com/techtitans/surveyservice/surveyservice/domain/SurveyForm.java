@@ -1,10 +1,19 @@
 package com.techtitans.surveyservice.surveyservice.domain;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+
 public class SurveyForm {
     private Long id;
+    @NotEmpty
     private String name;
     private String description;
     private String questions;
+    @Pattern(regexp = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/(19|20)\\d\\d$", message = "Entered date (${validatedValue}') must be in dd/mm/yyyy format")
+    private String startDate;
+
+    @Pattern(regexp = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/(19|20)\\d\\d$", message = "Entered date (${validatedValue}') be in dd/mm/yyyy format")
+    private String endDate;
 
     public SurveyForm() {
     }
@@ -14,6 +23,22 @@ public class SurveyForm {
         this.name = name;
         this.description = description;
         this.questions = questions;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     public Long getId() {

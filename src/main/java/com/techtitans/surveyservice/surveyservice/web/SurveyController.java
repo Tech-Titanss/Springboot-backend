@@ -1,16 +1,24 @@
 package com.techtitans.surveyservice.surveyservice.web;
 
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.techtitans.surveyservice.surveyservice.domain.Survey;
 import com.techtitans.surveyservice.surveyservice.domain.SurveyForm;
 import com.techtitans.surveyservice.surveyservice.domain.SurveyRepository;
+
+import jakarta.validation.Valid;
+
 import com.techtitans.surveyservice.surveyservice.domain.Question;
 import com.techtitans.surveyservice.surveyservice.domain.QuestionRepository;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,14 +46,18 @@ public class SurveyController {
 
     @GetMapping("/surveyquestions/{id}")
     public String listSurveyQuestions(@PathVariable("id") Long surveyId, Model model) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
         Optional<Survey> optionalSurvey = surveyRepository.findById(surveyId);
 
         if (optionalSurvey.isPresent()) {
 
             Survey survey = optionalSurvey.get();
+            String startDateString = formatter.format(survey.getStartDate());
+            String endDateString = formatter.format(survey.getEndDate());
             model.addAttribute("survey", survey);
             model.addAttribute("question", new Question());
+            model.addAttribute("answeringPeriod", (startDateString + "-" + endDateString));
 
             return "surveyquestions";
 
@@ -57,10 +69,23 @@ public class SurveyController {
     }
 
     @PostMapping("/savesurvey")
-    public String saveSurvey(SurveyForm surveyForm) {
+    public String saveSurvey(@Valid @ModelAttribute SurveyForm surveyForm, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("survey", surveyForm);
+            return "addsurvey";
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Survey newSurvey = new Survey();
         newSurvey.setName(surveyForm.getName());
         newSurvey.setDescription(surveyForm.getDescription());
+        try {
+            Date startDate = formatter.parse(surveyForm.getStartDate());
+            Date endDate = formatter.parse(surveyForm.getEndDate());
+            newSurvey.setStartDate(startDate);
+            newSurvey.setEndDate(endDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         surveyRepository.save(newSurvey);
 
         List<Question> questions = new ArrayList<>();
