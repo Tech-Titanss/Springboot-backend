@@ -1,5 +1,7 @@
 package com.techtitans.surveyservice.surveyservice.web;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.techtitans.surveyservice.surveyservice.domain.Survey;
+import com.techtitans.surveyservice.surveyservice.domain.SurveyForm;
 import com.techtitans.surveyservice.surveyservice.domain.SurveyRepository;
 import com.techtitans.surveyservice.surveyservice.domain.Question;
 import com.techtitans.surveyservice.surveyservice.domain.QuestionRepository;
@@ -54,9 +57,22 @@ public class SurveyController {
     }
 
     @PostMapping("/savesurvey")
-    public String saveSurvey(Survey survey) {
+    public String saveSurvey(SurveyForm surveyForm) {
+        Survey newSurvey = new Survey();
+        newSurvey.setName(surveyForm.getName());
+        newSurvey.setDescription(surveyForm.getDescription());
+        surveyRepository.save(newSurvey);
 
-        surveyRepository.save(survey);
+        List<Question> questions = new ArrayList<>();
+        String[] listOfQuestionStrings = surveyForm.getQuestions().split(",");
+        for (int i = 0; i < listOfQuestionStrings.length; i++) {
+            String questionText = listOfQuestionStrings[i];
+            Question question = new Question(questionText, newSurvey);
+            questionRepository.save(question);
+            questions.add(question);
+        }
+        newSurvey.setQuestions(questions);
+        surveyRepository.save(newSurvey);
 
         return "redirect:/surveylist";
     }
