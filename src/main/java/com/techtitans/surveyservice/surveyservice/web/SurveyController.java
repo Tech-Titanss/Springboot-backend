@@ -145,4 +145,18 @@ public class SurveyController {
         return "surveyedit";
     }
 
+    @PostMapping("/saveeditedsurvey")
+    public String saveEditedSurvey(@ModelAttribute("survey") Survey survey) {
+        List<Question> questions = survey.getQuestions();
+   
+        for (int i = 0; i < questions.size(); i++) {
+            Question question = questions.get(i);
+            System.out.println("CONSOLE LOOOGOGOGGOGOGOGGO" + question.getId() + " JAJAJAJAJAAJJAJAJAJ");
+            questionRepository.save(question);
+            survey.setQuestions(questions);
+        }
+
+        surveyRepository.save(survey);
+        return "redirect:/surveylist";
+    }
 }

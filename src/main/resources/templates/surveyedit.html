@@ -7,14 +7,15 @@
   </head>
   <body>
     <h1>Edit survey</h1>
-    <form th:object="${survey}" th:action="@{/savesurvey}" method="post">
+    <form th:object="${survey}" th:action="@{/saveeditedsurvey}" method="post">
       <input type="hidden" th:field="*{id}" />
       <div>
         <label>Name: <input type="text" th:field="*{name}" /></label><br />
         <label>Description: <input type="text" size="50%" th:field="*{description}"/></label><br>
-            <tr th:each="question: ${questions}">
-                <input type="text" th:field="*{questions}"/>
-            </tr>
+            <br><div th:each="question, stat: *{questions}">
+                <input type="text" size="50%" th:field="*{questions[__${stat.index}__].questionText}"/>
+                <input type="hidden" size="50%" th:field="*{questions[__${stat.index}__].id}"/>
+            </div>
       </div>
       <input type="submit" value="save" />
     </form>
