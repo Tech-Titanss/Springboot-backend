@@ -29,9 +29,11 @@ public class Survey {
     public Survey() {
     }
 
-    public Survey(String name, String description) {
+    public Survey(String name, String description, Date startDate, Date endDate) {
         this.name = name;
         this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public Long getId() {

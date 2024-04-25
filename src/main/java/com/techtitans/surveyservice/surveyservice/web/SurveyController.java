@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -139,16 +140,23 @@ public class SurveyController {
 
     @GetMapping("/surveyedit/{id}")
     public String editsurvey(@PathVariable("id") Long id, Model model) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Survey survey = surveyRepository.findById(id).get();
+        model.addAttribute("startDate", formatter.format(survey.getStartDate()));
+        model.addAttribute("endDate", formatter.format(survey.getStartDate()));
         model.addAttribute("survey", survey);
         model.addAttribute("questions", survey.getQuestions());
         return "surveyedit";
     }
 
     @PostMapping("/saveeditedsurvey")
-    public String saveEditedSurvey(@ModelAttribute("survey") Survey survey) {
-        List<Question> questions = survey.getQuestions();
+    public String saveEditedSurvey(@ModelAttribute("survey") Survey survey,
+            @RequestParam("startDate") @DateTimeFormat(pattern = "dd/MM/yyyy") Date startDate,
+            @RequestParam("endDate") @DateTimeFormat(pattern = "dd/MM/yyyy") Date endDate) {
+        survey.setStartDate(startDate);
+        survey.setEndDate(endDate);
 
+        List<Question> questions = survey.getQuestions();
         for (Question question : questions) {
             question.setSurvey(survey);
             questionRepository.save(question);

@@ -4,20 +4,69 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="/css/bootstrap.min.css"
+      th:href="@{/css/bootstrap.min.css}"
+    />
+    <style>
+      body {
+        padding: 16;
+        margin: 0;
+      }
+    </style>
   </head>
   <body>
     <h1>Edit survey</h1>
     <form th:object="${survey}" th:action="@{/saveeditedsurvey}" method="post">
       <input type="hidden" th:field="*{id}" />
-      <div>
+      <div class="form-group">
         <label>Name: <input type="text" th:field="*{name}" /></label><br />
-        <label>Description: <input type="text" size="50%" th:field="*{description}"/></label><br>
-            <br><div th:each="question, stat: *{questions}">
-                <input type="text" size="50%" th:field="*{questions[__${stat.index}__].questionText}"/>
-                <input type="hidden" size="50%" th:field="*{questions[__${stat.index}__].id}"/>
-            </div>
+        <label
+          >Description:
+          <input type="text" size="50%" th:field="*{description}" /></label
+        ><br />
+        <div class="form-group" style="margin-bottom: 8px">
+          <h6>Survey answering period</h6>
+          <label
+            >Start:
+            <input
+              type="text"
+              id="startdate"
+              name="startDate"
+              th:value="${startDate}"
+              placeholder="dd/mm/yyyy"
+            />
+          </label>
+          <label
+            >End:
+            <input
+              type="text"
+              id="enddate"
+              name="endDate"
+              th:value="${endDate}"
+              placeholder="dd/mm/yyyy"
+            />
+          </label>
+        </div>
+        <br />
+        <div th:each="question, stat: *{questions}">
+          <input
+            type="text"
+            size="50%"
+            th:field="*{questions[__${stat.index}__].questionText}"
+          />
+          <input
+            type="hidden"
+            size="50%"
+            th:field="*{questions[__${stat.index}__].id}"
+          />
+        </div>
       </div>
-      <input type="submit" value="save" />
+      <div style="margin-top: 8px">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
     </form>
   </body>
 </html>

@@ -1,5 +1,7 @@
 package com.techtitans.surveyservice.surveyservice;
 
+import java.util.Date;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,9 +23,11 @@ public class SurveyserviceApplication {
 	public CommandLineRunner demo(SurveyRepository surveyRepository, QuestionRepository questionRepository) {
 		return (args) -> {
 
-
-			Survey surveyTest1 = new Survey("Kouluruoka kysely", "Kysely kouluruuasta ja mielipiteestä ruokaan");
-			Survey surveyTest2 = new Survey("Pasilan kampuksen kysely", "Kysymykset liittyvät Haaga-Helian pasilan kampuksen viihtyisyyteen ja yleisesti tiloihin");
+			Survey surveyTest1 = new Survey("Kouluruoka kysely", "Kysely kouluruuasta ja mielipiteestä ruokaan",
+					new Date(), new Date());
+			Survey surveyTest2 = new Survey("Pasilan kampuksen kysely",
+					"Kysymykset liittyvät Haaga-Helian pasilan kampuksen viihtyisyyteen ja yleisesti tiloihin",
+					new Date(), new Date());
 
 			surveyRepository.save(surveyTest1);
 			surveyRepository.save(surveyTest2);
@@ -48,7 +52,8 @@ public class SurveyserviceApplication {
 
 			Question kampus1 = new Question("Mitä mieltä olet Pasilan kampuksen siisteydestä?", surveyTest2);
 			Question kampus2 = new Question("Millä tavalla kuljet Pasilan kampukselle?", surveyTest2);
-			Question kampus3 = new Question("Onko Pasilan kampuksella tarpeeksi oleskelutilaa opiskella/odotella?", surveyTest2);
+			Question kampus3 = new Question("Onko Pasilan kampuksella tarpeeksi oleskelutilaa opiskella/odotella?",
+					surveyTest2);
 			Question kampus4 = new Question("Onko Pasilan kampuksella jotakin parannettavaa?", surveyTest2);
 			Question kampus5 = new Question("Oletko tyytyväinen kouluruokaan?", surveyTest2);
 
