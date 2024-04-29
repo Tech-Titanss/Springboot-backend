@@ -51,7 +51,7 @@
         </label>
       </div>
       <div class="question-inputs">
-        <div class="form-group row">
+        <div class="form-group row" style="align-content: center">
           <div class="col">
             <label>Question:</label>
             <input
@@ -60,6 +60,17 @@
               name="questions"
               th:field="${survey.questions}"
             />
+          </div>
+          <div class="col">
+            <label for="type">Type:</label>
+            <select
+              id="type"
+              th:field="${survey.questionTypes}"
+              class="form-control"
+            >
+              <option type="text" value="text">Text</option>
+              <option type="text" value="radiobutton">Radiobutton</option>
+            </select>
           </div>
           <div class="col" style="align-self: end">
             <button

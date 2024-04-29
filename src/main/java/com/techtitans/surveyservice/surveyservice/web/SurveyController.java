@@ -76,6 +76,12 @@ public class SurveyController {
             return "addsurvey";
         }
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        List<Integer> defaultOptions = new ArrayList<>();
+        defaultOptions.add(1);
+        defaultOptions.add(2);
+        defaultOptions.add(3);
+        defaultOptions.add(4);
+        defaultOptions.add(5);
         Survey newSurvey = new Survey();
         newSurvey.setName(surveyForm.getName());
         newSurvey.setDescription(surveyForm.getDescription());
@@ -91,9 +97,15 @@ public class SurveyController {
 
         List<Question> questions = new ArrayList<>();
         String[] listOfQuestionStrings = surveyForm.getQuestions().split(",");
+        String[] listOfQuestionTypes = surveyForm.getQuestionTypes().split(",");
         for (int i = 0; i < listOfQuestionStrings.length; i++) {
             String questionText = listOfQuestionStrings[i];
+            String questionType = listOfQuestionTypes[i];
             Question question = new Question(questionText, newSurvey);
+            question.setType(questionType);
+            if (question.getType().matches("radiobutton")) {
+                question.setOptions(defaultOptions);
+            }
             questionRepository.save(question);
             questions.add(question);
         }

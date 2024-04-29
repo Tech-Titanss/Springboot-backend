@@ -26,6 +26,8 @@ public class Survey {
     @OneToMany(mappedBy = "survey")
     private List<Question> questions;
 
+    private String questionTypes;
+
     public Survey() {
     }
 
@@ -42,6 +44,14 @@ public class Survey {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getQuestionTypes() {
+        return questionTypes;
+    }
+
+    public void setQuestionTypes(String questionTypes) {
+        this.questionTypes = questionTypes;
     }
 
     public String getName() {

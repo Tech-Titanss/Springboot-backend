@@ -9,6 +9,8 @@ public class SurveyForm {
     private String name;
     private String description;
     private String questions;
+    private String questionTypes;
+
     @Pattern(regexp = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/(19|20)\\d\\d$", message = "Entered date (${validatedValue}') must be in dd/mm/yyyy format")
     private String startDate;
 
@@ -39,6 +41,14 @@ public class SurveyForm {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public String getQuestionTypes() {
+        return questionTypes;
+    }
+
+    public void setQuestionTypes(String questionTypes) {
+        this.questionTypes = questionTypes;
     }
 
     public Long getId() {

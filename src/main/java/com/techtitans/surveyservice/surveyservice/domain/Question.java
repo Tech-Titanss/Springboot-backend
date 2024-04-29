@@ -17,13 +17,12 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long id;
+
     private String questionText;
+
     private String type;
-
-    private List<String> options;
-
+    private List<Integer> options;
     @ManyToOne
     private Survey survey;
 
@@ -88,11 +87,11 @@ public class Question {
         this.type = type;
     }
 
-    public List<String> getOptions() {
+    public List<Integer> getOptions() {
         return options;
     }
 
-    public void setOptions(List<String> options) {
+    public void setOptions(List<Integer> options) {
         this.options = options;
     }
 }
