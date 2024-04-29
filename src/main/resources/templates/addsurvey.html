@@ -65,8 +65,10 @@
             <label for="type">Type:</label>
             <select
               id="type"
+              name="questionTypes"
               th:field="${survey.questionTypes}"
-              class="form-control"
+              class="form-control question-type"
+              onchange="updateQuestionTypes()"
             >
               <option type="text" value="text">Text</option>
               <option type="text" value="radiobutton">Radiobutton</option>
@@ -91,6 +93,12 @@
         <button type="reset" class="btn btn-secondary">Reset</button>
       </div>
     </form>
+    <input
+      type="hidden"
+      id="surveyQuestionTypes"
+      name="surveyQuestionTypes"
+      th:field="${survey.questionTypes}"
+    />
 
     <script>
       function addQuestion() {
@@ -100,6 +108,13 @@
         newInput.innerHTML =
           '<div class="col">' +
           '<label>Question:</label> <input type="text" class="form-control" name="questions" th:field="${survey.questions}"/> </div>' +
+          '<div class="col">' +
+          '<label for="type">Type:</label>' +
+          '<select class="form-control question-type" name="questionTypes"> onchange="updateQuestionTypes()"' +
+          '<option type="text" value="text">Text</option>' +
+          '<option type="text" value="radiobutton">Radiobutton</option>' +
+          "</select>" +
+          "</div>" +
           '<div class="col" style="align-self: end"><button type="button" class="btn btn-danger" onclick="removeQuestion(this)">Delete</button></div>';
         container.appendChild(newInput);
       }
@@ -107,6 +122,16 @@
       function removeQuestion(button) {
         var divToRemove = button.parentNode.parentNode;
         divToRemove.parentNode.removeChild(divToRemove);
+      }
+
+      function updateQuestionTypes() {
+        var questionTypes = document.querySelectorAll(".question-type");
+        var selectedTypes = [];
+        questionTypes.forEach(function (type) {
+          selectedTypes.push(type.value);
+        });
+        document.getElementById("surveyQuestionTypes").value =
+          selectedTypes.join(",");
       }
     </script>
   </body>
