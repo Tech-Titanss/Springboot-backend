@@ -34,18 +34,21 @@ public class SurveyserviceApplication {
 
 			Question kouluruoka1 = new Question("Mikä on lempiruokasi koulussa?", surveyTest1);
 			Question kouluruoka2 = new Question("Oletko tyytyväinen Haaga-Helian ruokaan?", surveyTest1);
-			Question kouluruoka3 = new Question("Mitä mieltä olet kouluruuan hinnasta?", surveyTest1);
+			// Question kouluruoka3 = new Question("Mitä mieltä olet kouluruuan hinnasta?",
+			// surveyTest1);
 			Question kouluruoka4 = new Question("Kerro omin sanoin mitä mieltä olet kouluruuasta.", surveyTest1);
 			Question kouluruoka5 = new Question("Onko kouluruoka tarpeeksi monipuolista?", surveyTest1);
 
-			Question kouluruoka6 = new Question("Lempielain?", "radiobutton", surveyTest1);
+			Question kouluruoka6 = new Question("Kouluruoka on sopivan hintaista.", "radiobutton", surveyTest1);
 			kouluruoka6.getOptions().add(1);
 			kouluruoka6.getOptions().add(2);
 			kouluruoka6.getOptions().add(3);
+			kouluruoka6.getOptions().add(4);
+			kouluruoka6.getOptions().add(5);
 
 			questionRepository.save(kouluruoka1);
 			questionRepository.save(kouluruoka2);
-			questionRepository.save(kouluruoka3);
+			// questionRepository.save(kouluruoka3);
 			questionRepository.save(kouluruoka4);
 			questionRepository.save(kouluruoka5);
 			questionRepository.save(kouluruoka6);
