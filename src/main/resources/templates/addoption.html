@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Add question</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="/css/bootstrap.min.css"
+      th:href="@{/css/bootstrap.min.css}"
+    />
+  </head>
+  <body></body>
+</html>
+  <body>
+    <h1>Add option</h1>
+
+    <form
+      method="post"
+      action="#"
+      th:action="@{/savenewoption}"
+      th:object="${option}"
+    >
+    <a class="btn btn-secondary"  th:href="@{/questionedit/{id}(id=${option.question.id})}">Back to question</a>
+      <input type="hidden" th:field="${option.question}" />
+      <input type="hidden" th:field="${option.id}"/>
+      <label for="optionText"
+        >Option:
+        <input type="text" id="optionText" th:field="${option.optionText}" /></label
+      >
+      <br />
+      <input type="submit" value="Save" />
+    </form>
+  </body>
+</html>

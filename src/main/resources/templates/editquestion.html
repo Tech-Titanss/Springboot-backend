@@ -16,19 +16,25 @@
       th:action="@{/saveeditedquestion}"
       method="post"
     >
-      <input type="hidden" value="${question.id}" />
+      <a
+        class="btn btn-secondary"
+        th:href="@{/surveyquestions/{id}(id=${question.survey.id})}"
+        ><span th:text="'Back to ' +${question.survey.name}"></span
+      ></a>
+      <input type="hidden" th:field="${question.id}" />
+      <input type="hidden" th:field="${question.survey}" />
+      <input type="hidden" th:field="${question.type}" />
+
       <input th:field="${question.questionText}" />
-      <div class="col">
-        <label for="type">Type:</label>
-        <select
-          id="type"
-          name="questionTypes"
-          th:field="${question.type}"
-          class="form-control question-type"
+      <div>
+        <div th:each="option : ${question.options}">
+          <div th:text="${option.optionText}"></div>
+        </div>
+        <a
+          class="btn btn-primary"
+          th:href="@{/addoption/{id}(id=${question.id})}"
+          >Add option</a
         >
-          <option type="text" value="text">Text</option>
-          <option type="text" value="radiobutton">Radiobutton</option>
-        </select>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>

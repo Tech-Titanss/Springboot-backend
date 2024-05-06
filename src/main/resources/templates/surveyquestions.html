@@ -22,10 +22,12 @@
       <table class="table table-striped">
         <tr>
           <th>Questions</th>
+          <th>Question type</th>
           <th></th>
         </tr>
         <tr th:each="question : ${survey.questions}">
           <td th:text="${question.questionText}"></td>
+          <td th:text="${question.type}"></td>
           <td>
             <a
               class="btn btn-primary"
@@ -43,7 +45,7 @@
       <br />
       <br />
 
-      <a class="btn btn-success" href="/surveylist">Back to surveys</a>
+      <a class="btn btn-secondary" href="/surveylist">Back to surveys</a>
     </div>
   </body>
 </html>

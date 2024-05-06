@@ -20,6 +20,8 @@ import com.techtitans.surveyservice.surveyservice.domain.SurveyRepository;
 
 import jakarta.validation.Valid;
 
+import com.techtitans.surveyservice.surveyservice.domain.Option;
+import com.techtitans.surveyservice.surveyservice.domain.OptionRepository;
 import com.techtitans.surveyservice.surveyservice.domain.Question;
 import com.techtitans.surveyservice.surveyservice.domain.QuestionRepository;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +34,8 @@ public class SurveyController {
     private SurveyRepository surveyRepository;
     @Autowired
     private QuestionRepository questionRepository;
+    @Autowired
+    private OptionRepository optionRepository;
 
     @GetMapping("/addsurvey")
     public String addSurvey(Model model) {
@@ -144,11 +148,32 @@ public class SurveyController {
         Optional<Question> optionalQuestion = questionRepository.findById(id);
         if (optionalQuestion.isPresent()) {
             Question question = optionalQuestion.get();
+            Survey survey = question.getSurvey();
             model.addAttribute("question", question);
+            model.addAttribute("survey", survey);
             return "editquestion";
         } else {
             return "error";
         }
+    }
+
+    @GetMapping("/addoption/{id}")
+    public String getMethodName(@PathVariable("id") Long id, Model model) {
+        Option newOption = new Option();
+        Question question = questionRepository.findById(id).get();
+        newOption.setQuestion(question);
+        model.addAttribute("option", newOption);
+        return "addoption";
+    }
+
+    @PostMapping("/savenewoption")
+    public String postMethodName(@ModelAttribute Option option) {
+        System.out.println("AHHGJKGKJAGKJHGK " + option.getQuestion() + "  dkljshflksjhdslkjfhdlkgfkjlsgajlk");
+        Question question = option.getQuestion();
+        List<Option> options = question.getOptions();
+        options.add(option);
+        optionRepository.save(option);
+        return "redirect:/questionedit/" + question.getId();
     }
 
     @PostMapping("/saveeditedquestion")
