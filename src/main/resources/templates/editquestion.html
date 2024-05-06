@@ -8,6 +8,11 @@
       href="/css/bootstrap.min.css"
       th:href="@{/css/bootstrap.min.css}"
     />
+    <style>
+      body{
+        padding: 16px;
+      }
+    </style>
   </head>
   <body>
     <h1>Edit question</h1>
@@ -16,27 +21,31 @@
       th:action="@{/saveeditedquestion}"
       method="post"
     >
+    <input type="hidden" th:field="${question.id}" />
+    <input type="hidden" th:field="${question.survey}" />
+    <input type="hidden" th:field="${question.type}" />
+    
+    <div class="form-group row" >
+      <input th:field="${question.questionText}" size="50" />
+    </div>
+    <div th:if="${question.type == 'radiobutton'}">
+      <div th:each="option : ${question.options}">
+        <div th:text="${option.optionText}"></div>
+      </div>
       <a
-        class="btn btn-secondary"
+      class="btn btn-success"
+      th:href="@{/addoption/{id}(id=${question.id})}"
+      >Add Option</a
+      >
+    </div>
+    <div class="form-group row" >
+      <a 
+        class="btn btn-secondary" 
         th:href="@{/surveyquestions/{id}(id=${question.survey.id})}"
         ><span th:text="'Back to ' +${question.survey.name}"></span
-      ></a>
-      <input type="hidden" th:field="${question.id}" />
-      <input type="hidden" th:field="${question.survey}" />
-      <input type="hidden" th:field="${question.type}" />
-
-      <input th:field="${question.questionText}" />
-      <div>
-        <div th:each="option : ${question.options}">
-          <div th:text="${option.optionText}"></div>
-        </div>
-        <a
-          class="btn btn-primary"
-          th:href="@{/addoption/{id}(id=${question.id})}"
-          >Add option</a
-        >
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+          ></a>
+          <button type="submit" class="btn btn-primary" style="margin-left: 4px;">Submit</button>
+    </div>
+  </form>
   </body>
 </html>
