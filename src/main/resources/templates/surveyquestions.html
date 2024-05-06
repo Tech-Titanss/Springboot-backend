@@ -22,9 +22,17 @@
       <table class="table table-striped">
         <tr>
           <th>Questions</th>
+          <th></th>
         </tr>
         <tr th:each="question : ${survey.questions}">
           <td th:text="${question.questionText}"></td>
+          <td>
+            <a
+              class="btn btn-primary"
+              th:href="@{/questionedit/{id}(id=${question.id})}"
+              >Edit</a
+            >
+          </td>
         </tr>
       </table>
 

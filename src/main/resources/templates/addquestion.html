@@ -25,7 +25,20 @@
       <label for="questionText"
         >Question:
         <input type="text" id="questionText" th:field="*{questionText}" /></label
-      ><br />
+      >
+      <div class="col">
+        <label for="type">Type:</label>
+        <select
+          id="type"
+          name="questionTypes"
+          th:field="${question.type}"
+          class="form-control question-type"
+        >
+          <option type="text" value="text">Text</option>
+          <option type="text" value="radiobutton">Radiobutton</option>
+        </select>
+      </div>
+      <br />
 
       <input type="submit" value="Save" />
     </form>

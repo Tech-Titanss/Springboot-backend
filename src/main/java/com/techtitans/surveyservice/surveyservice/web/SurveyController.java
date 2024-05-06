@@ -76,12 +76,6 @@ public class SurveyController {
             return "addsurvey";
         }
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        List<Integer> defaultOptions = new ArrayList<>();
-        defaultOptions.add(1);
-        defaultOptions.add(2);
-        defaultOptions.add(3);
-        defaultOptions.add(4);
-        defaultOptions.add(5);
         Survey newSurvey = new Survey();
         newSurvey.setName(surveyForm.getName());
         newSurvey.setDescription(surveyForm.getDescription());
@@ -103,9 +97,6 @@ public class SurveyController {
             String questionType = listOfQuestionTypes[i];
             Question question = new Question(questionText, newSurvey);
             question.setType(questionType);
-            if (question.getType().matches("radiobutton")) {
-                question.setOptions(defaultOptions);
-            }
             questionRepository.save(question);
             questions.add(question);
         }
@@ -141,13 +132,23 @@ public class SurveyController {
         Optional<Survey> optionalSurvey = surveyRepository.findById(surveyId);
 
         Survey survey = optionalSurvey.get();
-
         question.setSurvey(survey);
         questionRepository.save(question); // Tallenna kysymys ensin
         survey.getQuestions().add(question);
         surveyRepository.save(survey); // Tallenna kysely sen jälkeen
         return "redirect:/surveyquestions/" + surveyId;
+    }
 
+    @GetMapping("/questionedit/{id}")
+    public String getMethodName(@PathVariable("id") Long id, Model model) {
+        Optional<Question> optionalQuestion = questionRepository.findById(id);
+        if (optionalQuestion.isPresent()) {
+            Question question = optionalQuestion.get();
+            model.addAttribute("question", question);
+            return "editquestion";
+        } else {
+            return "error";
+        }
     }
 
     @GetMapping("/surveyedit/{id}")

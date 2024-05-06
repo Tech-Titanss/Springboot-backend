@@ -22,7 +22,11 @@ public class Question {
     private String questionText;
 
     private String type;
-    private List<Integer> options;
+
+    @JsonIgnoreProperties("question")
+    @OneToMany(mappedBy = "question")
+    private List<Option> options;
+
     @ManyToOne
     private Survey survey;
 
@@ -87,11 +91,11 @@ public class Question {
         this.type = type;
     }
 
-    public List<Integer> getOptions() {
+    public List<Option> getOptions() {
         return options;
     }
 
-    public void setOptions(List<Integer> options) {
+    public void setOptions(List<Option> options) {
         this.options = options;
     }
 }

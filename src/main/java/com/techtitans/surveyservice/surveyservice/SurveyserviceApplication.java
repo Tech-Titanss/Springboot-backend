@@ -1,6 +1,8 @@
 package com.techtitans.surveyservice.surveyservice;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import com.techtitans.surveyservice.surveyservice.domain.QuestionRepository;
 import com.techtitans.surveyservice.surveyservice.domain.Survey;
 import com.techtitans.surveyservice.surveyservice.domain.SurveyRepository;
+import com.techtitans.surveyservice.surveyservice.domain.Option;
 import com.techtitans.surveyservice.surveyservice.domain.Question;
 
 @SpringBootApplication
@@ -32,16 +35,25 @@ public class SurveyserviceApplication {
 			surveyRepository.save(surveyTest1);
 			surveyRepository.save(surveyTest2);
 
-			Question kouluruoka1 = new Question("Mikä on lempiruokasi koulussa?", surveyTest1);
-			Question kouluruoka2 = new Question("Oletko tyytyväinen Haaga-Helian ruokaan?", surveyTest1);
-			Question kouluruoka3 = new Question("Mitä mieltä olet kouluruuan hinnasta?", surveyTest1);
-			Question kouluruoka4 = new Question("Kerro omin sanoin mitä mieltä olet kouluruuasta.", surveyTest1);
-			Question kouluruoka5 = new Question("Onko kouluruoka tarpeeksi monipuolista?", surveyTest1);
+			Question kouluruoka1 = new Question("Mikä on lempiruokasi koulussa?", "text", surveyTest1);
+			Question kouluruoka2 = new Question("Oletko tyytyväinen Haaga-Helian ruokaan?", "text", surveyTest1);
+			Question kouluruoka3 = new Question("Mitä mieltä olet kouluruuan hinnasta?", "text", surveyTest1);
+			Question kouluruoka4 = new Question("Kerro omin sanoin mitä mieltä olet kouluruuasta.", "text",
+					surveyTest1);
+			Question kouluruoka5 = new Question("Onko kouluruoka tarpeeksi monipuolista?", "text", surveyTest1);
+			Question kouluruoka6 = new Question("Mihin ikäryhmään kuulut?", "radiobutton", surveyTest1);
 
-			Question kouluruoka6 = new Question("Lempielain?", "radiobutton", surveyTest1);
-			kouluruoka6.getOptions().add(1);
-			kouluruoka6.getOptions().add(2);
-			kouluruoka6.getOptions().add(3);
+			Option option1 = new Option("10-20");
+			Option option2 = new Option("20-30");
+			Option option3 = new Option("30-40");
+			Option option4 = new Option("yli 40");
+
+			List<Option> options = new ArrayList<>();
+			options.add(option1);
+			options.add(option2);
+			options.add(option3);
+			options.add(option4);
+			kouluruoka6.setOptions(options);
 
 			questionRepository.save(kouluruoka1);
 			questionRepository.save(kouluruoka2);
