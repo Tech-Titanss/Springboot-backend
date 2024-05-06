@@ -42,6 +42,13 @@ public class SurveyRestController {
         return surveyRepository.findById(id);
     }
 
+    @GetMapping("/question/{id}")
+    public @ResponseBody Optional<Question> getQuestion(@PathVariable("id") Long id) {
+        return questionRepository.findById(id);
+    }
+
+
+
     @PostMapping("/saveanswers")
     public @ResponseBody String postSurvey(@RequestBody Map<String, String> surveyParams) {
         for (Map.Entry<String, String> entry : surveyParams.entrySet()) {
