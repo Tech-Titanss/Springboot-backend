@@ -140,7 +140,7 @@ public class SurveyController {
     }
 
     @GetMapping("/questionedit/{id}")
-    public String getMethodName(@PathVariable("id") Long id, Model model) {
+    public String getEditQuestion(@PathVariable("id") Long id, Model model) {
         Optional<Question> optionalQuestion = questionRepository.findById(id);
         if (optionalQuestion.isPresent()) {
             Question question = optionalQuestion.get();
@@ -149,6 +149,12 @@ public class SurveyController {
         } else {
             return "error";
         }
+    }
+
+    @PostMapping("/saveeditedquestion")
+    public String saveEditedQuestion(@ModelAttribute Question question) {
+        questionRepository.save(question);
+        return "redirect:/surveylist";
     }
 
     @GetMapping("/surveyedit/{id}")

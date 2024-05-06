@@ -13,6 +13,7 @@ import com.techtitans.surveyservice.surveyservice.domain.QuestionRepository;
 import com.techtitans.surveyservice.surveyservice.domain.Survey;
 import com.techtitans.surveyservice.surveyservice.domain.SurveyRepository;
 import com.techtitans.surveyservice.surveyservice.domain.Option;
+import com.techtitans.surveyservice.surveyservice.domain.OptionRepository;
 import com.techtitans.surveyservice.surveyservice.domain.Question;
 
 @SpringBootApplication
@@ -23,7 +24,8 @@ public class SurveyserviceApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(SurveyRepository surveyRepository, QuestionRepository questionRepository) {
+	public CommandLineRunner demo(SurveyRepository surveyRepository, QuestionRepository questionRepository,
+			OptionRepository optionRepository) {
 		return (args) -> {
 
 			Survey surveyTest1 = new Survey("Kouluruoka kysely", "Kysely kouluruuasta ja mielipiteestä ruokaan",
@@ -43,10 +45,26 @@ public class SurveyserviceApplication {
 			Question kouluruoka5 = new Question("Onko kouluruoka tarpeeksi monipuolista?", "text", surveyTest1);
 			Question kouluruoka6 = new Question("Mihin ikäryhmään kuulut?", "radiobutton", surveyTest1);
 
+			questionRepository.save(kouluruoka1);
+			questionRepository.save(kouluruoka2);
+			questionRepository.save(kouluruoka3);
+			questionRepository.save(kouluruoka4);
+			questionRepository.save(kouluruoka5);
+			questionRepository.save(kouluruoka6);
+
 			Option option1 = new Option("10-20");
+			option1.setQuestion(kouluruoka6);
 			Option option2 = new Option("20-30");
+			option2.setQuestion(kouluruoka6);
 			Option option3 = new Option("30-40");
+			option3.setQuestion(kouluruoka6);
 			Option option4 = new Option("yli 40");
+			option4.setQuestion(kouluruoka6);
+
+			optionRepository.save(option1);
+			optionRepository.save(option2);
+			optionRepository.save(option3);
+			optionRepository.save(option4);
 
 			List<Option> options = new ArrayList<>();
 			options.add(option1);
@@ -54,13 +72,6 @@ public class SurveyserviceApplication {
 			options.add(option3);
 			options.add(option4);
 			kouluruoka6.setOptions(options);
-
-			questionRepository.save(kouluruoka1);
-			questionRepository.save(kouluruoka2);
-			questionRepository.save(kouluruoka3);
-			questionRepository.save(kouluruoka4);
-			questionRepository.save(kouluruoka5);
-			questionRepository.save(kouluruoka6);
 
 			Question kampus1 = new Question("Mitä mieltä olet Pasilan kampuksen siisteydestä?", surveyTest2);
 			Question kampus2 = new Question("Millä tavalla kuljet Pasilan kampukselle?", surveyTest2);

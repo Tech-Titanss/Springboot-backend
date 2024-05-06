@@ -16,8 +16,20 @@
       th:action="@{/saveeditedquestion}"
       method="post"
     >
+      <input type="hidden" value="${question.id}" />
       <input th:field="${question.questionText}" />
-      <input th:field="${question.type}" />
+      <div class="col">
+        <label for="type">Type:</label>
+        <select
+          id="type"
+          name="questionTypes"
+          th:field="${question.type}"
+          class="form-control question-type"
+        >
+          <option type="text" value="text">Text</option>
+          <option type="text" value="radiobutton">Radiobutton</option>
+        </select>
+      </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </body>
