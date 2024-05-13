@@ -57,8 +57,8 @@ public class SurveyserviceApplication {
 			questionRepository.save(kouluruoka1);
 			questionRepository.save(kouluruoka2);
 			questionRepository.save(kouluruoka3);
-			questionRepository.save(kouluruoka5);
 			questionRepository.save(kouluruoka4);
+			questionRepository.save(kouluruoka5);
 			questionRepository.save(kouluruoka6);
 
 			Option option1 = new Option("10-20");
