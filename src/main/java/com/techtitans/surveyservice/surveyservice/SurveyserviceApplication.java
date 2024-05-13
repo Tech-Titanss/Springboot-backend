@@ -49,15 +49,16 @@ public class SurveyserviceApplication {
 			Question kouluruoka1 = new Question("Mikä on lempiruokasi koulussa?", "text", surveyTest1);
 			Question kouluruoka2 = new Question("Oletko tyytyväinen Haaga-Helian ruokaan?", "text", surveyTest1);
 			Question kouluruoka3 = new Question("Mitä mieltä olet kouluruuan hinnasta?", "text", surveyTest1);
-			Question kouluruoka4 = new Question("Kerro omin sanoin mitä mieltä olet kouluruuasta.", "text",surveyTest1);
-			Question kouluruoka5 = new Question("Onko kouluruoka tarpeeksi monipuolista?", "text", surveyTest1);
+			Question kouluruoka4 = new Question("Onko kouluruoka tarpeeksi monipuolista?", "radiobutton", surveyTest1);
+			Question kouluruoka5 = new Question("Kerro omin sanoin mitä mieltä olet kouluruuasta.", "text",
+					surveyTest1);
 			Question kouluruoka6 = new Question("Mihin ikäryhmään kuulut?", "radiobutton", surveyTest1);
 
 			questionRepository.save(kouluruoka1);
 			questionRepository.save(kouluruoka2);
 			questionRepository.save(kouluruoka3);
-			questionRepository.save(kouluruoka4);
 			questionRepository.save(kouluruoka5);
+			questionRepository.save(kouluruoka4);
 			questionRepository.save(kouluruoka6);
 
 			Option option1 = new Option("10-20");
@@ -69,21 +70,46 @@ public class SurveyserviceApplication {
 			Option option4 = new Option("yli 40");
 			option4.setQuestion(kouluruoka6);
 
+			Option option5 = new Option("Täysin samaa mieltä");
+			option5.setQuestion(kouluruoka4);
+			Option option6 = new Option("Osittain samaa mieltä");
+			option6.setQuestion(kouluruoka4);
+			Option option7 = new Option("En osaa sanoa");
+			option7.setQuestion(kouluruoka4);
+			Option option8 = new Option("Osittain eri mieltä");
+			option8.setQuestion(kouluruoka4);
+			Option option9 = new Option("Täysin eri mieltä");
+			option9.setQuestion(kouluruoka4);
+
 			optionRepository.save(option1);
 			optionRepository.save(option2);
 			optionRepository.save(option3);
 			optionRepository.save(option4);
+			optionRepository.save(option5);
+			optionRepository.save(option6);
+			optionRepository.save(option7);
+			optionRepository.save(option8);
+			optionRepository.save(option9);
 
-			List<Option> options = new ArrayList<>();
-			options.add(option1);
-			options.add(option2);
-			options.add(option3);
-			options.add(option4);
-			kouluruoka6.setOptions(options);
+			List<Option> options1 = new ArrayList<>();
+			options1.add(option1);
+			options1.add(option2);
+			options1.add(option3);
+			options1.add(option4);
+			kouluruoka6.setOptions(options1);
+
+			List<Option> options2 = new ArrayList<>();
+			options2.add(option5);
+			options2.add(option6);
+			options2.add(option7);
+			options2.add(option8);
+			options2.add(option9);
+			kouluruoka4.setOptions(options2);
 
 			Question kampus1 = new Question("Mitä mieltä olet Pasilan kampuksen siisteydestä?", "text", surveyTest2);
 			Question kampus2 = new Question("Millä tavalla kuljet Pasilan kampukselle?", "text", surveyTest2);
-			Question kampus3 = new Question("Onko Pasilan kampuksella tarpeeksi oleskelutilaa opiskella/odotella?", "text", surveyTest2);
+			Question kampus3 = new Question("Onko Pasilan kampuksella tarpeeksi oleskelutilaa opiskella/odotella?",
+					"text", surveyTest2);
 			Question kampus4 = new Question("Onko Pasilan kampuksella jotakin parannettavaa?", "text", surveyTest2);
 			Question kampus5 = new Question("Oletko tyytyväinen kouluruokaan?", "text", surveyTest2);
 
