@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -47,8 +46,6 @@ public class SurveyRestController {
         return questionRepository.findById(id);
     }
 
-
-
     @PostMapping("/saveanswers")
     public @ResponseBody String postSurvey(@RequestBody Map<String, String> surveyParams) {
         for (Map.Entry<String, String> entry : surveyParams.entrySet()) {
@@ -60,14 +57,6 @@ public class SurveyRestController {
             }
         }
         return "";
-    }
-
-    @PutMapping("/survey/{id}")
-    public @ResponseBody Survey changeSurvey(@RequestBody Survey survey, @PathVariable("id") Long id) {
-        Survey modifiedSurvey = surveyRepository.findById(id).get();
-        modifiedSurvey.setName(survey.getName());
-        modifiedSurvey.setDescription(survey.getDescription());
-        return surveyRepository.save(modifiedSurvey);
     }
 
     @GetMapping("/question/{questionid}/answer")

@@ -1,6 +1,7 @@
 package com.techtitans.surveyservice.surveyservice;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -28,11 +29,19 @@ public class SurveyserviceApplication {
 			OptionRepository optionRepository) {
 		return (args) -> {
 
+			// Calendar-rakenteen avulla luodaan date olio, joka on aina 1kk edellä
+			// startDate arvoa
+			Date startDate = new Date();
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(startDate);
+			calendar.add(Calendar.MONTH, 1);
+			Date endDate = calendar.getTime();
+
 			Survey surveyTest1 = new Survey("Kouluruoka kysely", "Kysely kouluruuasta ja mielipiteestä ruokaan",
-					new Date(), new Date());
+					startDate, endDate);
 			Survey surveyTest2 = new Survey("Pasilan kampuksen kysely",
 					"Kysymykset liittyvät Haaga-Helian pasilan kampuksen viihtyisyyteen ja yleisesti tiloihin",
-					new Date(), new Date());
+					startDate, endDate);
 
 			surveyRepository.save(surveyTest1);
 			surveyRepository.save(surveyTest2);
