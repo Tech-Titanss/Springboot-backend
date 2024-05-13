@@ -20,15 +20,16 @@
       th:action="@{/savenewoption}"
       th:object="${option}"
     >
-    <a class="btn btn-secondary"  th:href="@{/questionedit/{id}(id=${option.question.id})}">Back to question</a>
+    <div style="display: flex; flex-direction: column; width: fit-content">
+      <a class="btn btn-secondary"  th:href="@{/questionedit/{id}(id=${option.question.id})}">Back to question</a>
       <input type="hidden" th:field="${option.question}" />
       <input type="hidden" th:field="${option.id}"/>
-      <label for="optionText"
-        >Option:
-        <input type="text" id="optionText" th:field="${option.optionText}" /></label
+      <label for="optionText" style="margin: 8px"
+      >Option:
+      <input type="text" id="optionText" th:field="${option.optionText}" /></label
       >
-      <br />
       <input type="submit" value="Save" />
+    </div>
     </form>
   </body>
 </html>
