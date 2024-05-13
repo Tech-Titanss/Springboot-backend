@@ -194,8 +194,9 @@ public class SurveyController {
 
     @PostMapping("/saveeditedquestion")
     public String saveEditedQuestion(@ModelAttribute Question question) {
+        Long surveyId = question.getSurvey().getId();
         questionRepository.save(question);
-        return "redirect:/surveylist";
+        return "redirect:/surveyquestions/" + surveyId;
     }
 
     @GetMapping("/surveyedit/{id}")
