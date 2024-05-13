@@ -58,10 +58,4 @@ public class SurveyRestController {
         }
         return "";
     }
-
-    @GetMapping("/question/{questionid}/answer")
-    public @ResponseBody List<Answer> GetAnswer(@PathVariable("questionid") Long questionId) {
-        Question question = questionRepository.findById(questionId).get();
-        return question.getAnswer();
-    }
 }
