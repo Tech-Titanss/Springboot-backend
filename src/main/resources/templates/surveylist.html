@@ -30,10 +30,16 @@
             <a
               class="btn btn-primary"
               th:href="@{/surveyquestions/{id}(id=${survey.id})}"
-              >Show questions</a
+              >Open</a
             >
           </td>
-          <td> <a class="btn btn-primary" th:href="@{/surveyedit/{id}(id=${survey.id})}">Edit</a></td>
+          <td>
+            <a
+              class="btn btn-primary"
+              th:href="@{/surveyedit/{id}(id=${survey.id})}"
+              >Edit</a
+            >
+          </td>
         </tr>
       </table>
 

@@ -9,7 +9,7 @@
       th:href="@{/css/bootstrap.min.css}"
     />
     <style>
-      body{
+      body {
         padding: 16px;
       }
     </style>
@@ -21,31 +21,43 @@
       th:action="@{/saveeditedquestion}"
       method="post"
     >
-    <input type="hidden" th:field="${question.id}" />
-    <input type="hidden" th:field="${question.survey}" />
-    <input type="hidden" th:field="${question.type}" />
-    
-    <div class="form-group row" >
-      <input th:field="${question.questionText}" size="50" />
-    </div>
-    <div th:if="${question.type == 'radiobutton'}">
-      <div th:each="option : ${question.options}">
-        <div th:text="${option.optionText}"></div>
+      <input type="hidden" th:field="${question.id}" />
+      <input type="hidden" th:field="${question.survey}" />
+      <input type="hidden" th:field="${question.type}" />
+
+      <div class="form-group row">
+        <input th:field="${question.questionText}" size="50" />
       </div>
-      <a
-      class="btn btn-success"
-      th:href="@{/addoption/{id}(id=${question.id})}"
-      >Add Option</a
-      >
-    </div>
-    <div class="form-group row" >
-      <a 
-        class="btn btn-secondary" 
-        th:href="@{/surveyquestions/{id}(id=${question.survey.id})}"
-        ><span th:text="'Back to ' +${question.survey.name}"></span
-          ></a>
-          <button type="submit" class="btn btn-primary" style="margin-left: 4px;">Submit</button>
-    </div>
-  </form>
+      <div th:if="${question.type == 'radiobutton'}">
+        <p>Options:</p>
+        <ul>
+          <li th:each="option : ${question.options}" style="margin-top: 8px">
+            <span th:text="${option.optionText}"></span>
+            <button
+              class="btn btn-danger"
+              type="button"
+              th:onclick="|window.location.href='/deleteoption/${option.id}'|"
+            >
+              Delete
+            </button>
+          </li>
+        </ul>
+        <a
+          class="btn btn-success"
+          th:href="@{/addoption/{id}(id=${question.id})}"
+          >Add Option</a
+        >
+      </div>
+      <div class="form-group row">
+        <a
+          class="btn btn-secondary"
+          th:href="@{/surveyquestions/{id}(id=${question.survey.id})}"
+          ><span th:text="'Back to ' +${question.survey.name}"></span
+        ></a>
+        <button type="submit" class="btn btn-primary" style="margin-left: 4px">
+          Submit
+        </button>
+      </div>
+    </form>
   </body>
 </html>

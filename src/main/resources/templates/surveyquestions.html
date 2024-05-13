@@ -24,6 +24,7 @@
           <th>Questions</th>
           <th>Question type</th>
           <th></th>
+          <th></th>
         </tr>
         <tr th:each="question : ${survey.questions}">
           <td th:text="${question.questionText}"></td>
@@ -35,6 +36,15 @@
               >Edit</a
             >
           </td>
+          <td>
+            <button
+              class="btn btn-danger"
+              type="button"
+              th:onclick="|window.location.href='/deletequestion/${question.id}'|"
+            >
+              Delete
+            </button>
+          </td>
         </tr>
       </table>
 
@@ -44,7 +54,6 @@
 
       <br />
       <br />
-
       <a class="btn btn-secondary" href="/surveylist">Back to surveys</a>
     </div>
   </body>

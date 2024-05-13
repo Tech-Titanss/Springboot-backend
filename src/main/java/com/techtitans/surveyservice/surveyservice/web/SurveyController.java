@@ -110,6 +110,22 @@ public class SurveyController {
         return "redirect:/surveylist";
     }
 
+    @GetMapping("/deletequestion/{id}")
+    public String deleteQuestion(@PathVariable Long id) {
+        Question question = questionRepository.findById(id).get();
+        Long surveyId = question.getSurvey().getId();
+        questionRepository.deleteById(id);
+        return "redirect:/surveyquestions/" + surveyId;
+    }
+
+    @GetMapping("/deleteoption/{id}")
+    public String deleteOption(@PathVariable Long id) {
+        Option option = optionRepository.findById(id).get();
+        Long questionId = option.getQuestion().getId();
+        optionRepository.deleteById(id);
+        return "redirect:/questionedit/" + questionId;
+    }
+
     @GetMapping("/addquestion/{id}")
     public String addReader(@PathVariable("id") Long surveyId, Model model) {
 
