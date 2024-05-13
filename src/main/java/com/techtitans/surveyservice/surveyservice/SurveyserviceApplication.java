@@ -49,8 +49,7 @@ public class SurveyserviceApplication {
 			Question kouluruoka1 = new Question("Mikä on lempiruokasi koulussa?", "text", surveyTest1);
 			Question kouluruoka2 = new Question("Oletko tyytyväinen Haaga-Helian ruokaan?", "text", surveyTest1);
 			Question kouluruoka3 = new Question("Mitä mieltä olet kouluruuan hinnasta?", "text", surveyTest1);
-			Question kouluruoka4 = new Question("Kerro omin sanoin mitä mieltä olet kouluruuasta.", "text",
-					surveyTest1);
+			Question kouluruoka4 = new Question("Kerro omin sanoin mitä mieltä olet kouluruuasta.", "text",surveyTest1);
 			Question kouluruoka5 = new Question("Onko kouluruoka tarpeeksi monipuolista?", "text", surveyTest1);
 			Question kouluruoka6 = new Question("Mihin ikäryhmään kuulut?", "radiobutton", surveyTest1);
 
@@ -82,12 +81,11 @@ public class SurveyserviceApplication {
 			options.add(option4);
 			kouluruoka6.setOptions(options);
 
-			Question kampus1 = new Question("Mitä mieltä olet Pasilan kampuksen siisteydestä?", surveyTest2);
-			Question kampus2 = new Question("Millä tavalla kuljet Pasilan kampukselle?", surveyTest2);
-			Question kampus3 = new Question("Onko Pasilan kampuksella tarpeeksi oleskelutilaa opiskella/odotella?",
-					surveyTest2);
-			Question kampus4 = new Question("Onko Pasilan kampuksella jotakin parannettavaa?", surveyTest2);
-			Question kampus5 = new Question("Oletko tyytyväinen kouluruokaan?", surveyTest2);
+			Question kampus1 = new Question("Mitä mieltä olet Pasilan kampuksen siisteydestä?", "text", surveyTest2);
+			Question kampus2 = new Question("Millä tavalla kuljet Pasilan kampukselle?", "text", surveyTest2);
+			Question kampus3 = new Question("Onko Pasilan kampuksella tarpeeksi oleskelutilaa opiskella/odotella?", "text", surveyTest2);
+			Question kampus4 = new Question("Onko Pasilan kampuksella jotakin parannettavaa?", "text", surveyTest2);
+			Question kampus5 = new Question("Oletko tyytyväinen kouluruokaan?", "text", surveyTest2);
 
 			questionRepository.save(kampus1);
 			questionRepository.save(kampus2);
