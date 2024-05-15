@@ -68,7 +68,6 @@ public class SurveyController {
 
         } else {
 
-            // Handle book not found
             return "error"; // TODO: create error page
         }
     }
@@ -141,8 +140,8 @@ public class SurveyController {
 
         } else {
 
-            // Handle book not found
-            return "error"; // You need to create an error page
+            
+            return "error"; // TODO: create error page
         }
     }
 

@@ -46,14 +46,25 @@ public class SurveyRestController {
         return questionRepository.findById(id);
     }
 
+    //sidotaan vastaanotettu JSON Map-tietorakenteeseen
     @PostMapping("/saveanswers")
     public @ResponseBody String postSurvey(@RequestBody Map<String, String> surveyParams) {
+
+        //loopataan kaikki alkiot
         for (Map.Entry<String, String> entry : surveyParams.entrySet()) {
+
+            //haetaan kysymyksen id
             Long questionId = Long.parseLong(entry.getKey());
+
+            //kysymyksen id:llä saadaan haettua haluttu kysymys tietokannasta
             Question question = questionRepository.findById(questionId).orElse(null);
+
             if (question != null) {
+
+                //luodaan uusi vastaus, sidotaan se kysymykseen ja tallennetaan se tietokantaan
                 Answer answer = new Answer(entry.getValue(), question);
                 answerRepository.save(answer);
+
             }
         }
         return "";
