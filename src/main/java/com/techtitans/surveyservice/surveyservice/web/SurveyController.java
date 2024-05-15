@@ -126,7 +126,7 @@ public class SurveyController {
     }
 
     @GetMapping("/addquestion/{id}")
-    public String addReader(@PathVariable("id") Long surveyId, Model model) {
+    public String addQuestion(@PathVariable("id") Long surveyId, Model model) {
 
         Optional<Survey> optionalSurvey = surveyRepository.findById(surveyId);
 
@@ -146,7 +146,7 @@ public class SurveyController {
     }
 
     @PostMapping("/addquestion")
-    public String saveReader(Question question, @RequestParam("surveyId") Long surveyId) {
+    public String saveQuestion(Question question, @RequestParam("surveyId") Long surveyId) {
 
         Optional<Survey> optionalSurvey = surveyRepository.findById(surveyId);
 
